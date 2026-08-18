@@ -1,0 +1,357 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
+:root {
+  --bg-deep: #071113;
+  --bg-soft: #0d2023;
+  --panel-bg: rgba(10, 29, 32, 0.92);
+  --panel-bg-strong: rgba(3, 12, 14, 0.42);
+  --text-main: #e3eaeb;
+  --text-muted: #94a8ac;
+  --accent: #8fb1b7;
+  --accent-soft: rgba(143, 177, 183, 0.16);
+  --accent-border: rgba(143, 177, 183, 0.24);
+  --phase-a: #d4665f;
+  --phase-b: #5a92ba;
+  --phase-c: #5fa46d;
+  --err: #d4665f;
+  --panel-width: 340px;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  background-color: var(--bg-deep);
+  background-image: radial-gradient(circle at 50% 50%, var(--bg-soft) 0%, #030809 100%);
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+}
+
+#root {
+  display: flex;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+/* --- Panel de control ------------------------------------------------ */
+
+.floating-panel {
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  flex: 0 0 var(--panel-width);
+  width: var(--panel-width);
+  background: var(--panel-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-right: 1px solid var(--accent-border);
+  padding: 24px;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+  z-index: 10;
+  max-height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.floating-panel h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 4px;
+  color: var(--accent);
+}
+
+.floating-panel .subtitle {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 22px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.input-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.input-row label {
+  font-weight: 600;
+  font-size: 0.88rem;
+  flex: 0 0 58px;
+}
+
+.input-row.phase-a label { color: var(--phase-a); }
+.input-row.phase-b label { color: var(--phase-b); }
+.input-row.phase-c label { color: var(--phase-c); }
+
+.input-row .unit { color: var(--text-muted); font-size: 0.85rem; }
+
+.input-row input {
+  width: 64px;
+  min-width: 0;
+  background: rgba(0, 0, 0, 0.32);
+  border: 1px solid var(--accent-border);
+  color: var(--text-main);
+  padding: 6px 7px;
+  border-radius: 6px;
+  font-family: 'Consolas', monospace;
+  font-size: 0.92rem;
+  text-align: right;
+  transition: border-color 0.2s;
+}
+
+.input-row input:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+button {
+  background: rgba(143, 177, 183, 0.08);
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.88rem;
+  transition: all 0.15s;
+}
+
+.controls button { flex: 1; }
+
+button:hover {
+  background: var(--accent-soft);
+  color: #bfd1d4;
+}
+
+button.active {
+  background: #789ca3;
+  color: #061113;
+  border-color: #789ca3;
+}
+
+.speed-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.speed-row input[type='range'] {
+  flex: 1;
+  accent-color: var(--accent);
+}
+
+/* Marca fija del extremo derecho del slider: indica el tope de velocidad. */
+.speed-val {
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.trace-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+  cursor: pointer;
+}
+
+.randomize-control {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.randomize-control button { width: 100%; }
+
+.results {
+  background: var(--panel-bg-strong);
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--accent-border);
+}
+
+.results-error {
+  color: var(--err);
+  font-size: 0.86rem;
+}
+
+.results h3 {
+  font-size: 0.92rem;
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.results table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Consolas', monospace;
+  font-size: 0.86rem;
+}
+
+.results td {
+  padding: 2px 4px 2px 0;
+}
+
+.results td:first-child { font-weight: 700; width: 28px; }
+.results td:nth-child(2) { text-align: right; padding-right: 8px; }
+
+/* --- Escenario de diagramas ------------------------------------------ */
+
+.stage {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 22px 26px 40px;
+  box-sizing: border-box;
+}
+
+/* Fila 1: los cuatro diagramas de secuencia.
+   Fila 2: reconstruccion (1 columna) + formas de onda (columnas restantes). */
+.plot-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.wave-wrap {
+  grid-column: 2 / -1;
+  display: flex;
+  min-width: 0;
+}
+
+.plot {
+  margin: 0;
+  background: rgba(6, 20, 22, 0.4);
+  border: 1px solid var(--accent-border);
+  border-radius: 10px;
+  padding: 10px 10px 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.plot figcaption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  margin-bottom: 4px;
+}
+
+.plot-title {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #a9c2c6;
+}
+
+.plot-sub {
+  font-size: 0.66rem;
+  color: var(--text-muted);
+}
+
+.plot svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.recon-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.recon-wrap .plot {
+  flex: 1;
+}
+
+.phase-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.phase-tabs button {
+  padding: 3px 10px;
+  font-size: 0.72rem;
+  border-radius: 5px;
+  color: var(--tab-color, var(--accent));
+  border-color: color-mix(in srgb, var(--tab-color, var(--accent)) 45%, transparent);
+}
+
+.phase-tabs button.active {
+  background: var(--tab-color, var(--accent));
+  color: #061113;
+  border-color: var(--tab-color, var(--accent));
+}
+
+/* La onda ocupa toda su celda y se centra verticalmente respecto de la
+   reconstruccion, que es mas alta por ser un diagrama circular. */
+.plot-wave {
+  flex: 1;
+  min-width: 0;
+  justify-content: center;
+}
+
+.plot-wave svg {
+  max-height: 330px;
+}
+
+/* Solo se aplica scrollbar visible al panel flotante */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(143, 177, 183, 0.28);
+  border-radius: 3px;
+}
+
+@media (max-width: 1500px) {
+  .plot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wave-wrap { grid-column: 1 / -1; }
+}
+
+@media (max-width: 900px) {
+  .plot-grid { grid-template-columns: minmax(0, 1fr); }
+  .wave-wrap { grid-column: 1 / -1; }
+}
+
+@media (max-width: 760px) {
+  #root { flex-direction: column; }
+  .floating-panel {
+    position: relative;
+    width: 100%;
+    flex-basis: auto;
+    max-height: none;
+    border-right: none;
+    border-bottom: 1px solid var(--accent-border);
+  }
+  .stage { padding: 18px; }
+}

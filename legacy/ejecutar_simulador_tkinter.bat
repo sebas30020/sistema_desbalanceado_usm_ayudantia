@@ -1,0 +1,6 @@
+@echo off
+echo Instalando dependencias necesarias (numpy, matplotlib)...
+pip install numpy matplotlib
+echo Iniciando Simulador de Componentes Simétricas...
+python simulador.py
+pause
