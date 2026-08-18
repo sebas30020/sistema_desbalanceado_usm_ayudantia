@@ -54,6 +54,21 @@ body, html {
   box-sizing: border-box;
 }
 
+/* Cabecera institucional: solo el escudo (sin el texto en negro del
+   wordmark oficial, que no se lee sobre el fondo oscuro del panel). */
+.brand {
+  display: flex;
+  justify-content: center;
+  margin: -24px -24px 18px;
+  padding: 14px 24px 16px;
+  border-bottom: 1px solid var(--accent-border);
+}
+
+.brand img {
+  height: 64px;
+  width: auto;
+}
+
 .floating-panel h1 {
   font-size: 1.4rem;
   font-weight: 600;

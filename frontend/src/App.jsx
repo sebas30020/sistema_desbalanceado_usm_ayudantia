@@ -7,6 +7,7 @@ import { useAnimationClock } from './hooks/useAnimationClock.js';
 import PhasorPlot from './components/PhasorPlot.jsx';
 import ReconstructionPlot from './components/ReconstructionPlot.jsx';
 import WaveformPlot from './components/WaveformPlot.jsx';
+import usmShield from './assets/usm_shield.png';
 
 const DEFAULT_INPUTS = {
   va_mag: 1.0, va_ang: 0,
@@ -60,6 +61,9 @@ function App() {
   return (
     <>
       <aside className="floating-panel">
+        <div className="brand">
+          <img src={usmShield} alt="Universidad Técnica Federico Santa María" />
+        </div>
         <h1>Componentes Simétricas</h1>
         <div className="subtitle">Simulador fasorial interactivo</div>
 
