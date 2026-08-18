@@ -170,7 +170,6 @@ function App() {
               <div className="wave-wrap">
                 <WaveformPlot
                   title="FORMAS DE ONDA INSTANTÁNEAS"
-                  subtitle="v(t) = |V|·cos(ωt + ∠V) — sólido: sistema original · punteado: V0+V1+V2 reconstruido"
                   maxMag={result.maxMag}
                   angle={angle}
                   series={[
