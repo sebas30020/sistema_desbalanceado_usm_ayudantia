@@ -61,9 +61,13 @@ function WaveformPlot({ title, subtitle, series, maxMag, angle }) {
           <path key={s.key} d={s.d} fill="none" stroke={s.color} strokeWidth={s.width ?? 2} strokeDasharray={s.dashed ? '5,4' : undefined} opacity={s.dashed ? 0.85 : 1} />
         ))}
 
-        {/* Cursor sincronizado con la animacion fasorial */}
+        {/* Cursor sincronizado con la animacion fasorial. Solo la serie
+            solida recibe circulo + etiqueta: la reconstruida (dashed) es
+            V0+V1+V2, identicamente igual a la original en todo instante,
+            asi que su lectura caeria exactamente encima y se veria como
+            texto duplicado/ilegible. */}
         <line x1={cursorX} y1={PAD.top} x2={cursorX} y2={H - PAD.bottom} stroke="rgba(226, 238, 240, 0.55)" strokeWidth="1.1" />
-        {paths.map((s) => {
+        {paths.filter((s) => !s.dashed).map((s) => {
           const v = instant(s.value, angle);
           return (
             <g key={`c-${s.key}`}>
