@@ -122,6 +122,22 @@ body, html {
   font-size: 0.92rem;
   text-align: right;
   transition: border-color 0.2s;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+/* El spinner nativo se superpone al texto alineado a la derecha y corta los
+   decimales. Se sigue pudiendo ajustar el valor con las flechas del teclado. */
+.input-row input::-webkit-outer-spin-button,
+.input-row input::-webkit-inner-spin-button {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* El angulo necesita mas ancho que la magnitud: "-102,35" mide 57px. */
+.input-row input[name$='_ang'] {
+  width: 84px;
 }
 
 .input-row input:focus {
