@@ -58,7 +58,7 @@ export function Arrow({ from, to, color, label, width = 2, labelSide = 1, dim = 
   );
 }
 
-export function Grid({ scale, maxMag, unit = 'p.u.' }) {
+export function Grid({ scale, maxMag }) {
   const rings = useMemo(() => {
     const step = niceStep(maxMag);
     const out = [];
@@ -92,13 +92,12 @@ export function Grid({ scale, maxMag, unit = 'p.u.' }) {
       <polygon points={`${CENTER},${CENTER - RADIUS - 12} ${CENTER - 3.2},${CENTER - RADIUS - 5} ${CENTER + 3.2},${CENTER - RADIUS - 5}`} fill={plot.axis} />
       <text x={CENTER + RADIUS + 16} y={CENTER + 3.5} fill={plot.tick} fontSize="8.5" fontStyle="italic">Re</text>
       <text x={CENTER + 6} y={CENTER - RADIUS - 13} fill={plot.tick} fontSize="8.5" fontStyle="italic">Im</text>
-      <text x={CENTER + RADIUS + 16} y={CENTER + 14} fill={plot.tick} fontSize="7">{unit}</text>
     </g>
   );
 }
 
 // Diagrama fasorial: grilla con escala legible + los fasores girando a wt.
-function PhasorPlot({ title, subtitle, vectors, scale, maxMag, angle, showTrace, unit = 'p.u.' }) {
+function PhasorPlot({ title, subtitle, vectors, scale, maxMag, angle, showTrace }) {
   return (
     <figure className="plot">
       <figcaption>
@@ -106,7 +105,7 @@ function PhasorPlot({ title, subtitle, vectors, scale, maxMag, angle, showTrace,
         {subtitle && <span className="plot-sub">{subtitle}</span>}
       </figcaption>
       <svg viewBox={`0 0 ${VIEW} ${VIEW}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={title}>
-        <Grid scale={scale} maxMag={maxMag} unit={unit} />
+        <Grid scale={scale} maxMag={maxMag} />
 
         {showTrace &&
           vectors.map((v) => {
